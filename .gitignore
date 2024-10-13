@@ -4,3 +4,4 @@ student/settings.py
 app/__pycache__
 app/migrations
 app/__init__.py
+.DS_Store
