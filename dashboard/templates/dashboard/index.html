@@ -1,7 +1,8 @@
-{% comment %} {% extends "base.html" %} {% endcomment %}
+{% extends "base_dashboard.html" %}
+{% load static %}
 {% block content %}
 
-    <div class="container-scroller">
+<div class="container-scroller">
       <!-- partial:partials/_sidebar.html -->
       <nav class="sidebar sidebar-offcanvas" id="sidebar">
         <div class="sidebar-brand-wrapper d-none d-lg-flex align-items-center justify-content-center fixed-top">
@@ -13,7 +14,7 @@
             <div class="profile-desc">
               <div class="profile-pic">
                 <div class="count-indicator">
-                  <img class="img-xs rounded-circle " src="assets/images/faces/face15.jpg" alt="">
+                  <img class="img-xs rounded-circle " src="{% static "assets/images/faces/face15.jpg" %}" alt="">
                   <span class="count bg-success"></span>
                 </div>
                 <div class="profile-name">
@@ -301,7 +302,7 @@
               <li class="nav-item dropdown">
                 <a class="nav-link" id="profileDropdown" href="#" data-toggle="dropdown">
                   <div class="navbar-profile">
-                    <img class="img-xs rounded-circle" src="assets/images/faces/face15.jpg" alt="">
+                    <img class="img-xs rounded-circle" src="{% static "assets/images/faces/face15.jpg" %}" alt="">
                     <p class="mb-0 d-none d-sm-block navbar-profile-name">Henry Klein</p>
                     <i class="mdi mdi-menu-down d-none d-sm-block"></i>
                   </div>
@@ -1005,6 +1006,5 @@
             </div>
           </div>
           <!-- content-wrapper ends -->
-          <!-- partial:partials/_footer.html -->
 
 {% endblock  %}
