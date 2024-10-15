@@ -17,6 +17,22 @@ def dashboard_view(request):
 
 
 def login_view(request):
+    if request.method == 'POST':
+        email = request.POST.get('email')
+        password = request.POST.get('password')
+
+        user = authenticate(request, email=email, password=password)
+        print(user)
+        print("Hello User")
+
+        if user is not None:
+            login(request, user)
+            return redirect('dashboard-home')
+        else:
+            messages.error(request, "username or password incorrect")
+            return redirect('dashboard:loginUser')
+
+
     return render(request, 'dashboard/login.html')
 
 def signup_view(request):
