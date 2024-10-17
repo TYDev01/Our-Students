@@ -1,4 +1,5 @@
 {% load static %}
+{% load custom_filters %}
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -10,104 +11,97 @@
     <link rel="stylesheet" href="{% static "assets/vendors/mdi/css/materialdesignicons.min.css" %}">
     <link rel="stylesheet" href="{% static "assets/vendors/css/vendor.bundle.base.css" %}">
     <!-- endinject -->
-    <!-- Plugin css for this page -->
-    <!-- End plugin css for this page -->
     <!-- inject:css -->
-    <!-- endinject -->
-    <!-- Layout styles -->
     <link rel="stylesheet" href="{% static "assets/style.css" %}">
     <!-- End layout styles -->
     <link rel="shortcut icon" href="{% static "assets/images/favicon.png" %}" />
   </head>
   <body>
     {% block content %}
-        <div class="container-scroller">
+    <div class="container-scroller">
       <div class="container-fluid page-body-wrapper full-page-wrapper">
         <div class="row w-100 m-0">
           <div class="content-wrapper full-page-wrapper d-flex align-items-center auth login-bg">
-            <div class="card col-lg-4 mx-auto">
+            <div class="card col-lg-4 mx-auto p-0">
+              {% if messages %}
+                {% for message in messages %}
+                  {% if message.tags == "error" %}
+                    <p style="text-align: center; font-weight: bolder; background: #fb5607; color: #fff; width: 100%; padding: 8px; border-radius: 3px 3px 0 0;">{{message}}</p>
+                  {% elif message.tags == "success" %}
+                    <p style="text-align: center; font-weight: bolder; background: #02c39a; color: #fff; width: 100%; padding: 8px; border-radius: 3px 3px 0 0;">{{message}}</p>
+                  {% endif %}
+                {% endfor %}
+              {% endif %}
               <div class="card-body px-5 py-5">
                 <h3 class="card-title text-left mb-3">Register</h3>
+
                 <form action="" method="POST">
-                    {% csrf_token %}
+                  {% csrf_token %}
+                  {{ form.non_field_errors }}
+
                   <div class="form-group">
-                    <label>First Name</label>
-                    <input type="text" class="form-control p_input" name="first_name">
+                    <label for="first_name">First Name</label>
+                    {{ form.first_name.errors }}
+                    {{ form.first_name|add_class:"form-control p_input" }}
                   </div>
+
                   <div class="form-group">
-                    <label>Last Name</label>
-                    <input type="text" class="form-control p_input" name="last_name">
+                    <label for="last_name">Last Name</label>
+                    {{ form.last_name.errors }}
+                    {{ form.last_name|add_class:"form-control p_input" }}
                   </div>
+
                   <div class="form-group">
-                    <label>Email</label>
-                    <input type="email" class="form-control p_input" name="email">
+                    <label for="email">Email</label>
+                    {{ form.email.errors }}
+                    {{ form.email|add_class:"form-control p_input" }}
                   </div>
-                  {% comment %} <div class="form-group">
-                    <label>Address</label>
-                    <input type="text" class="form-control p_input" name="address">
-                  </div> {% endcomment %}
-                  {% comment %} <div class="form-group">
-                    <label>Phone Number</label>
-                    <input type="number" class="form-control p_input" name="phone_number">
-                  </div> {% endcomment %}
+
                   <div class="form-group">
-                    <label>Gender</label>
-                    <select class="form-control form-control-lg mb-3" aria-label="Default select example">
-                        <option selected>Select your Gender</option>
-                        <option value="1">Male</option>
-                        <option value="2">Female</option>
-                        <option value="3">Others</option>
-                    </select>
+                    <label for="gender">Gender</label>
+                    {{ form.gender.errors }}
+                    {{ form.gender|add_class:"form-control p_input" }}
                   </div>
+
                   <div class="form-group">
-                    <label>Password</label>
-                    <input type="password" class="form-control p_input" name="password">
+                    <label for="password">Password</label>
+                    {{ form.password.errors }}
+                    {{ form.password|add_class:"form-control p_input" }}
                   </div>
+
                   <div class="form-group">
-                    <label>Retype password</label>
-                    <input type="password" class="form-control p_input" name="password2">
+                    <label for="password2">Confirm Password</label>
+                    {{ form.password2.errors }}
+                    {{ form.password2|add_class:"form-control p_input" }}
                   </div>
+
                   <div class="form-group d-flex align-items-center justify-content-between">
                     <div class="form-check">
                       <label class="form-check-label">
-                        <input type="checkbox" class="form-check-input"> Remember me </label>
+                        <input type="checkbox" class="form-check-input"> Remember me
+                      </label>
                     </div>
                     <a href="#" class="forgot-pass">Forgot password</a>
                   </div>
+
                   <div class="text-center">
                     <button type="submit" class="btn btn-primary btn-block enter-btn">Register</button>
                   </div>
-                  <div class="d-flex">
-                    <button class="btn btn-facebook col mr-2">
-                      <i class="mdi mdi-facebook"></i> Facebook </button>
-                    <button class="btn btn-google col">
-                      <i class="mdi mdi-google-plus"></i> Google plus </button>
-                  </div>
-                  <p class="sign-up text-center">Already have an Account?<a href="{% url "dashboard:loginUser" %}"> Login</a></p>
+
+                  <p class="sign-up text-center">Already have an Account? <a href="{% url "dashboard:loginUser" %}">Login</a></p>
                   <p class="terms">By creating an account you are accepting our<a href="#"> Terms & Conditions</a></p>
                 </form>
               </div>
             </div>
           </div>
-          <!-- content-wrapper ends -->
         </div>
-        <!-- row ends -->
       </div>
-      <!-- page-body-wrapper ends -->
     </div>
-    {% endblock  %}
+    {% endblock %}
     <!-- container-scroller -->
-    <!-- plugins:js -->
     <script src="{% static "assets/vendors/js/vendor.bundle.base.js" %}"></script>
-    <!-- endinject -->
-    <!-- Plugin js for this page -->
-    <!-- End plugin js for this page -->
-    <!-- inject:js -->
     <script src="{% static "assets/js/off-canvas.js" %}"></script>
     <script src="{% static "assets/js/hoverable-collapse.js" %}"></script>
     <script src="{% static "assets/js/misc.js" %}"></script>
-    <script src="{% static "assets/js/settings.js" %}"></script>
-    <script src="{% static "assets/js/todolist.js" %}"></script>
-    <!-- endinject -->
   </body>
 </html>
